@@ -1,0 +1,15 @@
+extends layouts/layout
+
+block content
+ h1 signup
+  form(action="/signup" method="POST")
+  label(for="username")Username:
+  input(type="text" id="username" name="username" required)
+  lable(for="password")Password:
+  input(type="password" id="password" name="password" required)
+  label(for="memberhisp")MembershipType
+    option(value="free")Free
+    option(value="gold")Gold
+    option(value="platinum")Platinum
+    option(value="diamond")Diamond
+   button(type="submit"")Signup

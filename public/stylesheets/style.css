@@ -6,3 +6,77 @@ body {
 a {
   color: #00B7FF;
 }
+
+.login-form {
+    color: black;
+    background-color: gray;
+    padding: 20px;
+    border: 1px solid black;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.login button {
+    color: hotpink;
+    background-color: black;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin: 4px 2px;
+    padding: 15px 32px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.login button {
+    color: hotpink;
+    background-color: black;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 32px;
+    font-size: 16px;
+    margin: 4px 2px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.signup-form {
+    color: black;
+    background-color: gray;
+    padding: 20px;
+    border: 1px solid black;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+.signup button {
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    color: hotpink;
+    background-color: black;
+    font-size: 16px;
+    margin: 4px 2px;
+    padding: 15px 32px;
+    display: inline-block;
+    cursor: pointer;
+}

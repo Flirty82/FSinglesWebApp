@@ -31,3 +31,18 @@ const UserSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('User', userSchema);
+
+
+const userSchema = new mongoose.Schema({
+    name: String,
+    email: { type: String, unique: true },
+    password: String,
+    membership: {
+        type: String,
+        enum: ['Free', 'Gold', 'Platinum', 'Diamond'],
+        default: 'Free'
+    },
+    bio: String,
+    photoUrl: String,
+    createdAt: { type: Date, default: Date.now }
+});

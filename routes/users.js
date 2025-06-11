@@ -15,6 +15,38 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const router = express.Router();
 
+function auth(req, res, next) {
+    const token = req.header('Authorization');
+    If(!token) return res.status(401).json({ msg: 'No token' });
+
+    try {
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = decoded.id;
+        next();
+    } catch {
+        res.status(400).json({ msg: 'Invalid token' });
+    }
+}
+
+// Get current user's profile
+router.get('/me', auth, async (req, res) => {
+    const user = await User.findById(req.user).select('-password');
+    res.json(user);
+});
+
+// Update profile
+router.put('/me', auth, async (req, res) => {
+    const { username, bio } = req.body;
+    const user = await User.findByIdAndUpdate(
+        req.user,
+        { username, bio },
+        { new: true }
+    ).select('-password');
+    res.json(user);
+});
+
+module.exports = router;
+
 router.post('/signup', async (req, res) => {
     try {
         const { username, email, password } = req.body;

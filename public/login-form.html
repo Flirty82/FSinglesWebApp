@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a href="index.html" class="button">Activity Feed</a>
+                </li>
+                <li>
+                    <a href="public/user-profile.html" class="button">Profile</a>
+                </li>
+                <li>
+                    <a href="public/messag-form.html" class="button">Messages</a>
+                </li>
+                <li>
+                    <a href="public/settings-form.html" class="button">Settings</a>
+                </li>
+                <li>
+                    <a href="public/contact.html" class="button">Help?</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <br /><br />
+
+    <main>
+        <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required />
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+
+            <button type="submit" id="loginButton">Login</button>
+        </form>
+        <style>
+           .login form {
+               color: black;
+               background-color: gray;
+           padding: 20px;
+           border: 1px solid black;
+           }
+           label {
+               display: block;
+               margin-bottom: 10px;
+           }
+           input {
+               width: 100%;
+               padding: 10px;
+               border: 1px solid black;
+               border-radius: 5px;
+           }
+           .login button {
+               text-align: center;
+               text-decoration: none;
+               border: none;
+               border-radius: 5px;
+               color: hotpink;
+               background-color: black;
+               font-size: 16px;
+               padding: 15px 32px;
+               display: inline-block;
+               margin: 4px 2px;
+               cursor: pointer;
+           }
+        </style>
+        <script src="script.js"></script>
+    </main>
+</body>
+</html>
+<footer>
+    <div class="footer-content">
+        <address>
+            North Little Rock, Arkansas 72117<br />
+            <a href="mail to: flirtingsingles@gmail.com">
+                flirtingsingles@gmail.com
+            </a><br /><br />
+
+            <p>&copy; 2025 Flirting Singles</p>
+        </address>
+    </div>
+</footer>

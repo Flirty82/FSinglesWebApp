@@ -4,4 +4,7 @@
     <!-- Allows the build (or compile) script located on package.json to run on Build -->
     <ShouldRunBuildScript>false</ShouldRunBuildScript>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="client\" />
+  </ItemGroup>
 </Project>

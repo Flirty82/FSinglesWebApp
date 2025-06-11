@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Signup</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                     <a href="index.html" class="button">Activity Feed</a>
+                </li>
+                <li>
+                    <a href="public/user-profile.html" class="button">Profile</a>
+                </li>
+                <li>
+                    <a href="public/message-form.html" class="button">Message</a>
+                </li>
+                <li>
+                    <a href="public/flirts.html" class="button">Flirts</a>
+                </li>
+                <li>
+                    <a href="public/settings-form.html" class="button">Settings</a>
+                </li>
+                <li>
+                    <a href="public/contact.html" class="button">Help?</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form id="signup-form">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required />
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required />
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required />
+
+            <label for="confirm-password">Confirm Password:</label>
+            <input type="text" id="confirmPassword" name="confirmPassword" required />
+
+            <label for="about-me">About me...:</label>
+            <textarea id="about-me" name="about-me" placeholder="Tell something about yourself..."></textarea>
+
+            <label for="profile-picture">Profile Picture:</label>
+            <input type="file" id="profilePicture" name="profilePicture" alt="Profile Picture"
+            title="Select a profile image" placeholder="Add a profile picture" required />
+
+            <button type="submit" id="signupButton">Signup</button>
+        </form>
+        <style>
+            .signup-form {
+                color: black;
+                background-color: gray;
+                padding: 20px;
+                border: 1px solid black;
+            }
+            label {
+                display: block;
+                margin-bottom: 10px;
+            }
+            input {
+                width: 100%;
+                padding: 10px;
+                border: 1px solid black;
+                border-radius: 5px;
+            }
+            .signup button {
+                text-align: center;
+                text-decoration: none;
+                border: none;
+                border-radius: 5px;
+                color: hotpink;
+                background-color: black;
+                font-size: 16px;
+                margin: 4px 2px;
+                display: inline-block;
+                padding: 15px 32px;
+                cursor: pointer;
+            }
+        </style>
+        <script src="script.js"></script>
+    </main>
+</body>
+</html>
+<footer>
+    <div class="footer-content">
+        <address>
+            Arkansas, 72117<br /><br />
+
+            <p>&copy; Flirting Singles 2025</p>
+        </address>
+    </div>
+</footer>

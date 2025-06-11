@@ -1,28 +1,32 @@
 const express = require('express');
-const Message = reqire('../models/Message');
-const authenticate = require('../middleware/authenticate');
 const router = express.Router();
+const Message = require('../models/Message');
 
-router.post('/send', authenticate, async (req, res) => {
+// Save a message
+router.post('/', async (req, res) => {
+    const { sender, receiver, content } = req.body;
     try {
-        const { receiver, content } = req.body;
-        const message = new Message({ sender: req.userId, receiver, content });
-        await message.save();
-        res.json(message);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to send message' });
+        const msg = new Message({ sender, receiver, content });
+        await msg.save();
+        res.status(201).json(msg);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 
-router.get('/:userId', authenticate, async (req, res) => {
+// Get messages between two users
+router.get('/:user1/:user2', async (req, res) => {
+    const { user1, user2 } = req.params;
     try {
         const messages = await Message.find({
-            $or: [{ sender: req.userId, receiver: req.params.userId }, { sender: req.params / userId, receiver: req.userId }]
-        }).sort({ timestamp: 1 });
-
+            $or: [
+                { sender: user1, receiver: user2 },
+                { sender: user2, receiver: user1 }
+            ]
+        }).sort({ createdAt: 1 });
         res.json(messages);
-    } catch (error) {
-        res.status(500).json({ error: 'Failed to retrieve messages' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 });
 
