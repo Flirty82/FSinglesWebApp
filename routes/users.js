@@ -74,3 +74,27 @@ router.posst('/login', async (req, res) => {
 });
 
 module.exports = router;
+
+router.get('/search', async (req, res) => {
+    const { gender, minAge, maxAge, location, interestedIn } = req.query;
+
+    const query = {};
+
+    if (gender) query.gender = gender;
+    if (location) query.location = { $regex: new RegExp(location, 'i') };
+
+    if (minAge || maxAge) {
+        query.age = {};
+        if (minAge) query.age.$gte = parseInt(minAge);
+        if (maxAge) query.age.$lte = parseInt(maxAge);
+    }
+
+    if (interstedIn) {
+        query['preferences.gender'] = { $in: [interestedIn] };
+    }
+
+    const users = await User.find(query).select('-password');
+    res.json(users);
+});
+
+modile.exports = router;
