@@ -47,3 +47,60 @@ const handleSubmit = async (e) => {
     }
 };
 
+<Select
+    name="membership"
+    value={form.membership}
+    onChange={handleChange}
+    className="w-full p-2 border mb-2">
+
+    <option value="free">Free</option>
+    <option value="gold">Gold</option>
+    <option value="platinum">Platinum</option>
+    <option value="diamond">Diamond</option>
+</Select>
+
+const handleSignup = async () => {
+    const res = await axios.post('/api/auth/signup', form);
+    const user = res.data;
+
+    if (user.membership === 'free') {
+        navigate('/profile');
+    }
+};
+
+const [membership, setMembership] = useState('free');
+
+<select
+    value={membership}
+    onChange={(e) => setMembership(e.target.value)}
+    className="border p-2 w-full mt-2"
+>
+
+   <option value="free">Free</option>
+    <option value="gold">Gold</option>
+    <option value="platinum">Platinum</option>
+    <option value="diamong">Diamond</option>
+</select>
+
+await axios.post('/api/auth/signup', {
+    username,
+    email,
+    password,
+membership
+});
+
+const handlePaidSignup = async () => {
+    const planId = getPlanId(membership);
+
+    const res = await axios.post('/api/paypal/create-subscription', { planId });
+    window.location.href = res.data.url;
+};
+
+const getPlanId = (membership) => {
+    switch (membership) {
+        case 'gold': return 'P-9N800265A2819562ENATVMWA';
+        case 'platinum': return 'P-1E458577PH2479919NATV0NQ';
+        case 'diamond': return 'P-5EE86843D5262551HNAT';
+        default: return '';
+    }
+};

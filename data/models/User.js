@@ -11,6 +11,7 @@ const UserSchema = new mongoose.Schema({
     bio: { type: String, default: "" },
     profilePicture: { type: String, default: "" },
     interests: { type: [String], default: [] },
+    videoUrl: { type: String, default: '' },
     datingPreferences: {
         gender: { type: String, enum: ["male", "female", "non-binary", "any"] },
         ageRange: { type: [Number], default: [18, 50] },
@@ -30,6 +31,29 @@ const UserSchema = new mongoose.Schema({
     visibility: { type: String, enum: ["public", "private"], default: "public" },
 });
 
+// Profile Info
+profilePic: {
+    type: String, default: ''
+},
+bio: { type: String, default: '' },
+gender: { type: String, enum: ["male", "female", "rather not say"], default: "other" },
+age: { type: Number },
+location: { type: String, defautl: '' },
+
+// Dating Preferences
+lookingFor: { type: String, enum: ["male", "female", "both"] },
+ageRange: {
+    min: { type: Number, default: 18 },
+    max: { type: Number, default: 99 },
+},
+
+// Video Profile
+videoUrl: { type: String },
+
+// Membership
+membership: { type: String, enum: ["free", "gold", "[platinum", "diamond", default: "free"] },
+{ timestamp: true });
+
 module.exports = mongoose.model('User', userSchema);
 
 
@@ -45,4 +69,15 @@ const userSchema = new mongoose.Schema({
     bio: String,
     photoUrl: String,
     createdAt: { type: Date, default: Date.now }
+});
+
+const userSchema = new mongoose.Schema({
+    userName: String,
+    email: String,
+    password: String,
+    membership: {
+        type: String,
+        enum: ["free', "gold", "platinum", "diamond"],
+        default: "free"
+    },
 });

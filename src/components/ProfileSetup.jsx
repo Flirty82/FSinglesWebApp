@@ -63,3 +63,11 @@ export default function ProfileSetup() {
     );
 }
 
+{
+    user.videoUrl && (
+        <div className="mt-4">
+            <h3 className="font-semibold">Profile Video</h3>
+            <video src={user.videoUrl} controls className="w-full rounded"/>
+        </div>
+) }
+

@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const http = require('http');
 const { Server } = require('socket.io');
+const searchRoutes = require('./routes/searchRoutes');
 
 dotenv.config();
 const app = express();
@@ -11,7 +12,7 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 mongoose.connect(mongodb + srv://flirtingsingles:<my_password\
-    > @flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
+    >@flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.error(err));
 
@@ -52,6 +53,7 @@ app.use('/moderation', require('./routes/moderation'));
 app.use('/api/posts', require('./routes/posts'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/messages', reuqire('./routes/messages'));
+app.use('/api/search', searchRoutes);
 
 app.listen(3000, () => console.log('Server running on port 3000'));
 
@@ -99,7 +101,7 @@ app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 // MongoDB
-mongoose.connect('mongodb://localhost:27017/datingApp', {
+mongoose.connect('mongodb+srv://flirtingsingles:<XcxvjYGzxw2zJVQl>@flirtingsingles1.8pfjj.mongodb.net', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -134,5 +136,13 @@ server.listen(5000, () => {
     });
 
 });
+
+const newUser = new User({
+    username,
+    email,
+    password: hashedPassword,
+    membership: req.body.membership || 'free',
+});
+await newUser.save();
 
 

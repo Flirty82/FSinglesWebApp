@@ -15,9 +15,21 @@ const mongoose = require('mongoose');
 const { Server } = require('socket.io');
 const notificationRoutes = require('./routes/notificationRoutes');
 const videoRoutes = require('./routes/videoRoutes');
+const postRoutes = require('./routes/postRoutes');
+const userRoutes = require('./routes/userRoutes');
+const messageRoutes = require('./routes/messageRoutes');
+const http = require('http');
+const setupSocket = require('./socket');
+const preloadRooms = require('./preloadRooms');
+preloadRooms(); // right after db loads
+const videoRoutes = require('./routes/videoUploadRoutes');
+const flirtRoutes = require('./routes/flirtRoutes');
+const paypalRoutes = require('./routes/paypalRoutes');
+
 
 const app = express();
 const server = http.createServer(app);
+setupSocket(server);
 const io = new Server(server, {
     cors: { origin: '*' }
 });
@@ -26,6 +38,11 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/videos', videoRoutes);
+app.use('/api/posts', postRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/messages', messageRoutes);
+app.use('/api/paypal', paypalRoutes);
+
 
 mongoose.connect('my_mongodb_connection_string');
 
@@ -35,6 +52,9 @@ const messageRoutes = require('./routes/messageRoutes');
 app.use('/api/users', userRoutes);
 app.use('/api/flirts', flirtRoutes);
 app.use('/api/messages, messageRoutes');
+app.use('/api/videos', videoRoutes);
+app.use('/videos', express.static('uploads/videos')); // serve video files
+app.use('/api/flirts', flirtRoutes);
 
 io.on('connection', socket => {
     console.log('User connected:', socket.id);

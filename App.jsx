@@ -14,6 +14,13 @@ import Membership from './pages/Membership';
 import Payment from './pages/Payment';
 import ProfileSetup from './pages/ProfileSetup';
 import Home from './pages/Home'; // activity feed
+import { useParams } from 'react-router-dom';
+import Chat from './pages/Chat';
+
+function ChatWrapper() {
+    const { userId, targetUserId } = useParams();
+    return <Chat userId={userId} targetUserId={targetUserId} />;
+}
 
 function App() {
     return (
@@ -23,6 +30,11 @@ function App() {
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/profile-setup" element={<ProfileSetup />} />
                 <Route path="/home" element={<Home />} />
+                <Route path="/feed" element={<ActivityFeed userId={loggedInUserId} />} />
+                <Route path="/edit-profile" element={<EditProfile userId={loggedInUserId} />} />
+                <Route path="/payment" element={<Payment />} />
+                <Route path="/search" element={<Search />} />
+                <Rotue path="/chat/:userId/:targetUserId" element={<ChatWrapper />}/>
             </Routes>
         </Router>
     );
