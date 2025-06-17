@@ -74,7 +74,7 @@ export default function PostFeed() {
                 <div key={post._id} style={{ border: '1px solid black', borderRadius: '10px', padding: '1em', marginBottom: '1em' }}>
                     <p><strong>{post.user.username}</strong></p>
                     <p>{post.content}</p>
-                    <button onClick={() => likePost(post._id)}>Like ({post..likes.length})</button>
+                    <button onClick={() => likePost(post._id)}>Like ({post.likes.length})</button>
 
                     {/* Comments */}
                     <div style={{ marginTop: '1em' }}>
