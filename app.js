@@ -46,6 +46,3 @@ import Dashboard from './components/Dashboard';
 import PostFeed from './components/PostFeed';
 
 
-<Route path="/profile" element={<Profile />} />
-<Route path="/dashboard" element={<Dashboard/>}/>
-<Route path="/feed" element={<PostFeed/>}/>
