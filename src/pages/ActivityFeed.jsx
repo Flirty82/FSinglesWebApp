@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+roimport { useEffect, useState } from 'react';
 import axios from 'axios';
 
 export default function ActivityFeed({ userId }) {

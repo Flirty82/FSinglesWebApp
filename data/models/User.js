@@ -11,6 +11,8 @@ const UserSchema = new mongoose.Schema({
     bio: { type: String, default: "" },
     profilePicture: { type: String, default: "" },
     interests: { type: [String], default: [] },
+    friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    friendRequests: [{ type: mongoose.schema.Types.ObjectId, ref: 'User' }],
     videoUrl: { type: String, default: '' },
     datingPreferences: {
         gender: { type: String, enum: ["male", "female", "non-binary", "any"] },

@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 const http = require('http');
 const { Server } = require('socket.io');
 const searchRoutes = require('./routes/searchRoutes');
+const app = require('.app');
 
 dotenv.config();
 const app = express();
@@ -145,4 +146,22 @@ const newUser = new User({
 });
 await newUser.save();
 
+
+require('socket.io')(server);
+
+io.on('connection', (socket) => {
+    console.log('User Connected:', socket.id);
+
+    socket.on('joinRoom', (roomId) => {
+        socket.join(roomId);
+        console.log('User joined room: ${roomId}');
+    });
+
+    socket.on('sendMessage', async ({ roomId, sender, content }) => {
+        const message = new ChatMessage({ room: roomId, sender, content });
+        await message.save();
+        io.to(roomId).emit('newMessage', message);
+    });
+
+    socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 

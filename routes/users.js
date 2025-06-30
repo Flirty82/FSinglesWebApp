@@ -14,6 +14,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const router = express.Router();
+const targetId = req.params.id;
+
 
 function auth(req, res, next) {
     const token = req.header('Authorization');
@@ -57,7 +59,7 @@ router.post('/signup', async (req, res) => {
     }
 });
 
-router.posst('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
@@ -97,4 +99,6 @@ router.get('/search', async (req, res) => {
     res.json(users);
 });
 
+
 modile.exports = router;
+
