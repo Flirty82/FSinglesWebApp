@@ -1,0 +1,12 @@
+.karaoke-container {
+  text-align: center;
+  padding: 2rem;
+}
+.song-selector button {
+  margin: 0.5rem;
+  padding: 0.8rem 1.4rem;
+  font-size: 1rem;
+}
+.karaoke-video {
+  margin-top: 2rem;
+}

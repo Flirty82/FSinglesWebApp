@@ -1,69 +1,39 @@
-import React from 'react';
-import Home from './pages/Home';
-
-function App() {
-    return <Home />;
-}
-
-export default App;
-
-
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Membership from './pages/Membership';
-import Payment from './pages/Payment';
-import ProfileSetup from './pages/ProfileSetup';
-import Home from './pages/Home'; // activity feed
+<><Route path="/edit-profile" element={<EditProfile userId={loggedInUserId} />} /><Route path="/chat/:userId/:targetUserId" element={<ChatWrapper />} /></>
 import { useParams } from 'react-router-dom';
 import Chat from './pages/Chat';
+import friends from './components/Friends';
+import TruthOrDare from "./components/games/TruthOrDare";
+import Karaoke from "./components/games/Karaoke";
+<><Route path="/karaoke" element={<Karaoke />} /><Route path="/truth-or-dare" element={<TruthOrDare />} /></>
+import TruthOrDare from "./components/games/TruthOrDare";
+import Navbar from './components/Navbar';
+<Route path="/truth-or-dare" element={<TruthOrDare />} />
+import Karaoke from "./components/games/Karaoke";
+<Route path="/karaoke" element={<Karaoke />} />
+
+
 
 function ChatWrapper() {
     const { userId, targetUserId } = useParams();
-    return <Chat userId={userId} targetUserId={targetUserId} />;
+    return <Chat userId={userId} targetUserId={targetUserId}/>;
+
 }
 
-function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Membership />} />
-                <Route path="/payment" element={<Payment />} />
-                <Route path="/profile-setup" element={<ProfileSetup />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/feed" element={<ActivityFeed userId={loggedInUserId} />} />
-                <Route path="/edit-profile" element={<EditProfile userId={loggedInUserId} />} />
-                <Route path="/payment" element={<Payment />} />
-                <Route path="/search" element={<Search />} />
-                <Rotue path="/chat/:userId/:targetUserId" element={<ChatWrapper />}/>
-            </Routes>
-        </Router>
-    );
-}
+import BingoGame from "./components/games/BingoGame";
 
-export default App;
+// Inside <Routes>
+<Route path="/bingo" element={<BingoGame />} />
 
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Signup from './pages/Signup';
-import Membership from './pages/Membership';
-import Payment from './pages/Payment';
-import ProfileSetup from './pages/ProfileSetup';
-import Home from './pages/Home';
 
-function App() {
-    return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<Signup />} />
-                <Route path="/membership" element={<Membership />} />
-                <Route path="/payment" element={<Payment />} />
-                <Route path="/profile-setup" element={<ProfileSetup />} />
-                <Route path="/home" element={<Home />} />
-            </Routes>
-        </Router>
-    );
-}
+import Profile from './components/Profile';
+import Dashboard from './components/Dashboard';
+import Friends from './components/Friends';
+import Welcome from './pages/Welcome';
+import Navbar from './components/Navbar';
 
-export default App;
-
+<Navbar/>
+<Routes>
+     <Route path="/" element={<Welcome/>}/>
+<><><Route path="/profile" element={<Profile />} /><Route path="/dashboard" element={<Dashboard />} /></><Route path="/friends" element={<Friends />} /></>
+</Routes>
 

@@ -1,0 +1,43 @@
+.welcome-page {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(to bottom right, #ff69b4, #ffc0cb);
+  color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.welcome-page h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.tagline {
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.welcome-buttons .btn {
+  margin: 1rem;
+  padding: 1rem 2rem;
+  background-color: white;
+  color: #ff1493;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.welcome-buttons .btn:hover {
+  transform: scale(1.05);
+}
+
+.welcome-buttons .btn.light {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}

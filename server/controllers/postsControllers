@@ -1,0 +1,15 @@
+const Post = require('../models/Post');
+
+exports.createPost = async (req, res) => {
+    const { content, userId } = req.body;
+    // Fetch user's name (replace with actual DB query)
+    const username = 'MockUser'; // Replace with actual DB query
+    const post = new Post({ userId, username, content });
+    await post.save();
+    res.status(201).json(post);
+};
+
+exports.getPosts = async (req, res) => {
+    const Posts = await Post.find().sort({ createdAt: -1 });
+    res.json(posts);
+};

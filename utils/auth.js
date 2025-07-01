@@ -1,7 +1,5 @@
-export const hasAccess = (user, requiredLevel) => {
-    const levels = ['free', 'gold', 'platinum', 'diamond'];
-    return levels.indexOf(user.membership) >= levels.indexOf(requiredLevel);
+export const hasAccess = (user, requiredMembershipLevel) => {
+    const levels = ["free", "gold", "platinum", "diamond"];
+    const userLevelIndex = levels.indexOf(user.membershipLevel);
+    return levels.indexOf(requiredMembershipLevel) <= userLevelIndex;
 };
-
-{ hasAccess(user, 'gold') && <FlirtButton /> }
-{ hasAccess(user, 'platinum') && <p>Upgrade to Platinum to unlock video profiles</p> }

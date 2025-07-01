@@ -1,0 +1,17 @@
+.tod-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.buttons button {
+  margin: 0.5rem;
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.prompt-box {
+  margin-top: 2rem;
+  font-weight: bold;
+  font-size: 1.3rem;
+}
