@@ -5,6 +5,6 @@
     <ShouldRunBuildScript>false</ShouldRunBuildScript>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="client\" />
+    <Folder Include="config\" />
   </ItemGroup>
 </Project>
