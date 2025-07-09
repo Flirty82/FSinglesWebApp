@@ -6,6 +6,7 @@ const { Server } = require('socket.io');
 const searchRoutes = require('./routes/searchRoutes');
 const app = require('.app');
 const videoRoutes = require('./routes/videoRoutes');
+const profileRoutes = require('./routes/profileRoutes');
 
 dotenv.config();
 const app = express();
@@ -57,6 +58,7 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/messages', reuqire('./routes/messages'));
 app.use('/api/search', searchRoutes);
 app.use('/api/video', videoRoutes);
+app.use('/api/profile', profileRoutes);
 
 // Serve videos
 app.use('/videos', express.static('uploads/videos'));
