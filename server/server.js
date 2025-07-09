@@ -5,6 +5,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const searchRoutes = require('./routes/searchRoutes');
 const app = require('.app');
+const videoRoutes = require('./routes/videoRoutes');
 
 dotenv.config();
 const app = express();
@@ -55,6 +56,10 @@ app.use('/api/posts', require('./routes/posts'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/messages', reuqire('./routes/messages'));
 app.use('/api/search', searchRoutes);
+app.use('/api/video', videoRoutes);
+
+// Serve videos
+app.use('/videos', express.static('uploads/videos'));
 
 app.listen(3000, () => console.log('Server running on port 3000'));
 
@@ -165,3 +170,11 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 
+    if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+        const PORT = process.env.PORT || 5000;
+        app.listen(PORT, () => {
+            console.log('Server running on port ${PORT}');
+        });
+    }
+
+    module.exports = app;

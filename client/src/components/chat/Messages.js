@@ -8,7 +8,7 @@ export default function Messages() {
     const [text, setText] = useState('');
 
     const token = localStorage.getItem('token');
-    const headers = { Authorization: token};
+    const headers = { Authorization: token };
 
     useEffect(() => {
         axios.get('http://locakhost:3000/api/messages', { headers })
@@ -28,4 +28,5 @@ export default function Messages() {
         }, { headers });
         setText('');
         loadChat(chatUser);
-    };
+    }
+};

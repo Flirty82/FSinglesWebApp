@@ -99,6 +99,67 @@ router.get('/search', async (req, res) => {
     res.json(users);
 });
 
+// Send friend request
+router.post('/friend-request/:id', auth, async (req, res) => {
+    const targetId = req.params.id;
+    const user = await User.findById(req.user);
+    const targetUser = await User.findById(targetId);
+
+    if (!targetUser) return res.status(404).json({ msg: "User not found." });
+    if (targetUser.friendRequests.includes(req.user)) {
+        return res.status(400).json({ msg: "Already sent request" });
+    }
+
+    targetUser.friendRequests.push(req.user);
+    await targetUser.save();
+    res.json({ msg: "Friend request sent." });
+});
+
+// Accept friend request
+router.post('/accept-request/:id', auth, async (req, res) => {
+    const requesterId = req.params.id;
+
+    const user = await User.findById(requesterId);
+
+    if (!user.friendRequests.includes(requesterId)) {
+        return res.status(400).json({ msg: "No request from this user" });
+    };
+
+    // Remove request, add friends
+    user.friendRequests = use.friendRequests.filter(id => id.toString() !== requesterId);
+    user.friends.push(requesterId);
+    requester.friends.push(req.user);
+
+    await user.save();
+    await requester.save();
+
+    res.json({ msg: "Friend request sent!" });
+});
+
+// Decline friend request
+router.post('/decline-request/:id', auth, async (req, res) => {
+    const requesterId = req.params.id;
+    const user = await User.findById(req.user);
+
+    user.friendRequests = user.friendRequests.filter(id => id.toString() !== requesterId);
+    await user.save();
+
+    res.json({ msg: "Friend request declined." });
+});
+
+// Get list of incoming friend requests
+router.get('/requests', auth, async (req, res) => {
+    const user = await User.findByid(req.user).populate('friendRequests', 'username profilePicture');
+    res.json(user.friendRequests);
+});
+
+// Get list of friends
+router.get('/friends', auth, async (req, res) => {
+    const user = await User.findById(req.user).populate('friends', 'username profilePicture');
+    res.json(user.friends);
+});
+
+
 
 modile.exports = router;
 
