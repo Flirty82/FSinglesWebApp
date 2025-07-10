@@ -1,5 +1,34 @@
 import React from 'react';
 import Home from './pages/Home';
+import { useEffect } from 'react';
+import socket from './socket';
+
+function Dashboard() {
+    const {user} = useAuth();
+
+    useEffect(() => {
+        if (!user) return;
+
+        socket.emit('joinRoom', user._id); // join private room
+
+        socket.on('receiveMessage', (msg) => {
+            if (msg.sender !== user._id) {
+                alert('New message from ${msg.sender}: ${msg.content}');
+            }
+        });
+
+        socket.on('chatInvite', ({ formUser }) => {
+            alert('${fromUser} invited you to a chat room!');
+        });
+
+        return () => {
+            socket.off('receiveMessage');
+            socket.off('chatInvite');
+        };
+    }, [user]);
+
+    return <div>Dashboard</div>
+}
 
 function App() {
     return <Home />;
