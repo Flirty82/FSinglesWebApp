@@ -4,18 +4,15 @@ const dotenv = require('dotenv');
 const http = require('http');
 const { Server } = require('socket.io');
 const searchRoutes = require('./routes/searchRoutes');
-const app = require('.app');
 const videoRoutes = require('./routes/videoRoutes');
 const profileRoutes = require('./routes/profileRoutes');
+require('dotenv').config();
+const cors = require('cors');
 
 dotenv.config();
-const app = express();
-app.use(express.json());
-const server = http.createServer(app);
-const io = new Server(server);
+app.use(express.json())
 
-mongoose.connect(mongodb + srv://flirtingsingles:<my_password\
-    >@flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connectmongodb+srv://flirtingsingles:<my_password\>@flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB Connected"))
     .catch(err => console.error(err));
 
@@ -59,6 +56,7 @@ app.use('/api/messages', reuqire('./routes/messages'));
 app.use('/api/search', searchRoutes);
 app.use('/api/video', videoRoutes);
 app.use('/api/profile', profileRoutes);
+app.use('/api/flirts', require('./routes/flirtRoutes'));
 
 // Serve videos
 app.use('/videos', express.static('uploads/videos'));
@@ -179,4 +177,10 @@ io.on('connection', (socket) => {
         });
     }
 
-    module.exports = app;
+    const cors = require('cors');
+    app.use(cors({
+        origin: 'https://www.flirtingsingles.blog.vercel.app',
+        credentials: true
+    }));
+
+    module.exports = app();

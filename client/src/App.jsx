@@ -2,6 +2,11 @@ import React from 'react';
 import Home from './pages/Home';
 import { useEffect } from 'react';
 import socket from './socket';
+import Inbox from './pages/Inbox';
+import ChatRoom from './pages/ChatRoom';
+
+<Route path="/inbox" element={<Inbox />} />
+<Route path="/chat/:id" element={<ChatRoom />} />
 
 function Dashboard() {
     const {user} = useAuth();
@@ -33,8 +38,6 @@ function Dashboard() {
 function App() {
     return <Home />;
 }
-
-export default App;
 
 
 import React from 'react';
@@ -71,12 +74,13 @@ function App() {
                 <Route path="/games" element={<Games />} />
                 <Route path="/welcome" element={<WelcomePage />} />
                 <Route path="/Bingo" element={<Bingo />}/>
+                <Route path="/flirts" element={<Flirts />} />
+<Route path="/matches" element={<Matches />} />
+
             </Routes>
         </Router>
     );
 }
-
-export default App;
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';

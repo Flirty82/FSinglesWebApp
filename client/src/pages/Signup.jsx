@@ -30,7 +30,7 @@ export default function Signup() {
 const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-        const res = await fetch('http://localhost:5000/api/auth/signup', {
+        const res = await fetch('https://www.flirtingsingles.blog/api/auth/signup', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(form)
@@ -60,7 +60,7 @@ const handleSubmit = async (e) => {
 </Select>
 
 const handleSignup = async () => {
-    const res = await axios.post('/api/auth/signup', form);
+    const res = await axios.post('https://www.flirtingsingles.blog/api/auth/signup', form);
     const user = res.data;
 
     if (user.membership === 'free') {
@@ -92,7 +92,7 @@ membership
 const handlePaidSignup = async () => {
     const planId = getPlanId(membership);
 
-    const res = await axios.post('/api/paypal/create-subscription', { planId });
+    const res = await axios.post('https://www.flirtingsingles.blog/api/paypal/create-subscription', { planId });
     window.location.href = res.data.url;
 };
 

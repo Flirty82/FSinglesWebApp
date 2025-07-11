@@ -13,6 +13,7 @@ const UserSchema = new mongoose.Schema({
     interests: { type: [String], default: [] },
     friends: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
     friendRequests: [{ type: mongoose.schema.Types.ObjectId, ref: 'User' }],
+    vidoeProfile: { type: String, default: '' },
     videoUrl: { type: String, default: '' },
     datingPreferences: {
         gender: { type: String, enum: ["male", "female", "non-binary", "any"] },
