@@ -16,7 +16,10 @@
     "socket.io": "^4.7.1"
   },
   "devDependencies": {
-    "nodemon": "2.0.22",
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "nodemon": "2.0.22"
+  },
+  "dependencies": {
+    "firebase": "^11.10.0"
   }
 }
