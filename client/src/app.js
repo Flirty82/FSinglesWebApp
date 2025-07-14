@@ -47,5 +47,28 @@ module.exports = app;
 import Profile from './components/Profile';
 import Dashboard from './components/Dashboard';
 import PostFeed from './components/PostFeed';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import MainNav from './components/MainNav';
+import WelcomePage from './pages/WelcomePage';
+import AboutPage from './pages/AboutPage';
+import MembershipPage from './pages/MembershipPage';
+import ContactPage from './pages/ContactPage';
+
+function App() {
+  return (
+    <Router>
+      <MainNav/>
+      <Routes>
+        <Route path="/" element={<WelcomePage/>}/>
+        <Route path="/about" element={<AboutPage/>}/>
+        <Route path="/memberships" element={<Memberships/>}/>
+        <Route path="/contact" element={<ContactPage/>}/>
+      </Routes>
+      </Router>
+  );
+}
+
+export default App;
 
 
