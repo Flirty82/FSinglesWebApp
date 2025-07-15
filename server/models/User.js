@@ -29,18 +29,11 @@ UserSchema.pre('save', async function (next) {
 
 UserSchema.plugin(fuzzySearching, { fields: ["username", "interests"] });
 
-const UserSchema = new mongoose.Schema({
-    theme: { type: String, enum: ["light", "dark"], default: "light" },
-    visibility: { type: String, enum: ["public", "private"], default: "public" },
-});
-
 // Profile Info
-profilePic: {
-    type: String, default: ''
-},
-bio: { type: String, default: '' },
+profilePic: { type: String },
+bio: { type: String }
 gender: { type: String, enum: ["male", "female", "rather not say"], default: "other" },
-age: { type: Number },
+{ type: Number },
 location: { type: String, defautl: '' },
 
 // Dating Preferences

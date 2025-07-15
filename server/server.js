@@ -69,9 +69,8 @@ server.listen(3000, () => console.log('Server running on port 3000'));
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const app = express();
 
-mongoose.connect('mongodb://localhost:27017/datingApp', {
+mongoose.connect('mongodb+srv://flirtingsingles:<65SZgghaaXl1vqHW>@flirtingsingles1.8pfjj.mongodb.net?retryWrites=true&w=majority&appName=flirtingsingles1', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
