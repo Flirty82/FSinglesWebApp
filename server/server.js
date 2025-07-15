@@ -5,12 +5,14 @@ const http = require('http');
 const { Server } = require('socket.io');
 const searchRoutes = require('./routes/searchRoutes');
 const videoRoutes = require('./routes/videoRoutes');
+const paypalRoutes = require('./routes/paypalRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 require('dotenv').config();
 const cors = require('cors');
 
 dotenv.config();
 app.use(express.json())
+app.use('/api/paypal', paypalRoutes);
 
 mongoose.connectmongodb+srv://flirtingsingles:<my_password\>@flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("MongoDB Connected"))
