@@ -1,0 +1,11 @@
+.escape-room {
+  text-align: center;
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto;
+}
+.escape-room input {
+  padding: 0.5rem;
+  width: 60%;
+  margin-top: 1rem;
+}

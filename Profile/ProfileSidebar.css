@@ -1,0 +1,32 @@
+.profile-sidebar {
+  width: 220px;
+  padding: 1.5rem;
+  background-color: #ffe4ec;
+  border-right: 1px solid #ffc0cb;
+  height: 100vh;
+  position: sticky;
+  top: 70px;
+}
+
+.profile-sidebar h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.profile-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.profile-sidebar li {
+  margin-bottom: 1rem;
+}
+
+.profile-sidebar a {
+  color: #ff1493;
+  font-weight: bold;
+  text-decoration: none;
+}
+.profile-sidebar a:hover {
+  text-decoration: underline;
+}

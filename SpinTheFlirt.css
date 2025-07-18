@@ -1,0 +1,19 @@
+.flirt-container {
+    text-align: center;
+    padding: 2rem;
+}
+.flirt-container button {
+    font-size: 1.5rem;
+    padding: 1rem 2rem;
+    background-color: hotpink;
+    color: white;
+    border: none;
+    border-radius: 1em;
+    cursor: pointer;
+}
+.flirt-result {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ff4081
+}

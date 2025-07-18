@@ -1,43 +1,11 @@
 import React from 'react';
 import Home from './pages/Home';
-import { useEffect } from 'react';
-import socket from './socket';
-import Inbox from './pages/Inbox';
-import ChatRoom from './pages/ChatRoom';
-
-<Route path="/inbox" element={<Inbox />} />
-<Route path="/chat/:id" element={<ChatRoom />} />
-
-function Dashboard() {
-    const {user} = useAuth();
-
-    useEffect(() => {
-        if (!user) return;
-
-        socket.emit('joinRoom', user._id); // join private room
-
-        socket.on('receiveMessage', (msg) => {
-            if (msg.sender !== user._id) {
-                alert('New message from ${msg.sender}: ${msg.content}');
-            }
-        });
-
-        socket.on('chatInvite', ({ formUser }) => {
-            alert('${fromUser} invited you to a chat room!');
-        });
-
-        return () => {
-            socket.off('receiveMessage');
-            socket.off('chatInvite');
-        };
-    }, [user]);
-
-    return <div>Dashboard</div>
-}
 
 function App() {
     return <Home />;
 }
+
+export default App;
 
 
 import React from 'react';
@@ -48,9 +16,6 @@ import ProfileSetup from './pages/ProfileSetup';
 import Home from './pages/Home'; // activity feed
 import { useParams } from 'react-router-dom';
 import Chat from './pages/Chat';
-import WelcomePage from './pages/WelcomePage';
-import MessagesPage from './pages/MessagesPage';
-import ProfilePage from './pages/ProfilePage';
 
 function ChatWrapper() {
     const { userId, targetUserId } = useParams();
@@ -69,18 +34,13 @@ function App() {
                 <Route path="/edit-profile" element={<EditProfile userId={loggedInUserId} />} />
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/search" element={<Search />} />
-                <Rotue path="/chat/:userId/:targetUserId" element={<ChatWrapper />} />
-                <Route path="/messages" element={<MessagesPage />} />
-                <Route path="/games" element={<Games />} />
-                <Route path="/welcome" element={<WelcomePage />} />
-                <Route path="/Bingo" element={<Bingo />}/>
-                <Route path="/flirts" element={<Flirts />} />
-<Route path="/matches" element={<Matches />} />
-
+                <Rotue path="/chat/:userId/:targetUserId" element={<ChatWrapper />}/>
             </Routes>
         </Router>
     );
 }
+
+export default App;
 
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';

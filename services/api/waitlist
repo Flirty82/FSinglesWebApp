@@ -1,0 +1,26 @@
+const generateRefCode () => Math.random().toString(36).substring(2, 8);
+
+router.post('/', async (req, res) => {
+    const { email, referredBy } = req.body;
+
+    if (!email) return res.status(400).json({ message: "Email is required" });
+
+    try {
+        const refCode = generateRefCode();
+        const newEntry = new WaitListEntry({ email, refCode, refferedBy });
+        await newEntry.save();
+
+        // Update referal count for referrer
+        if (referredBy) {
+            await  WaitListEntry.findOneAndUpdate(
+                { refCode: referredBy },
+                { $inc: { referrals: 0 }}
+            );
+        }
+
+        res.json({ message: "You're in!", refCode });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Error joining the waitlist" });
+    }
+});

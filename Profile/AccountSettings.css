@@ -1,0 +1,27 @@
+.settings-page {
+  padding: 2rem;
+  max-width: 600px;
+  margin: auto;
+}
+
+.settings-page label {
+  display: block;
+  margin-top: 1.5rem;
+}
+
+.settings-page input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.upgrade-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: gold;
+  padding: 0.8rem 1.2rem;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
