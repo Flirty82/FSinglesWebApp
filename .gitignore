@@ -406,3 +406,57 @@ dataconnect-generated/
 # Optional: OS files 
 .DS_Store
 Thumbs.db
+
+# Node.js
+node_modules/
+.environment
+
+# Logs
+npm-debug.log*
+yarn-debug-log*
+yarn-error.log*
+
+# Uploaded user content
+uploads/
+
+# OS/system junk
+.DS_Store
+Thumbs.db
+
+# Build Output
+client/build/
+dist/
+
+# IDE-specific
+.vscode/
+.idea/
+
+# Coverage/test reports
+coverage/
+
+# Backend runtime artifacts
+server/*.Log
+
+# Node modules
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# Environment variables
+.environment
+
+# build
+client/build/
+
+# IDE
+.vscode/
+.idea/
+
+# OS junk.DS_Store
+Thumbs.db
+
+# Logs
+*.Log
+
+# User content
+uploads/

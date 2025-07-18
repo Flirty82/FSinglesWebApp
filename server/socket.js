@@ -20,6 +20,14 @@ function setupSocket(server) {
             await message.save();
 
             io.to(receiver).
-        }
-    })
-}
+        };
+    });
+
+    socket.on('chatInvite', ({ toUserId, fromUser }) => {
+        io.to(toUserId).emit('chatInvite', { fromUser });
+    });
+};
+
+return io;
+
+module.exports = { initSocket };
