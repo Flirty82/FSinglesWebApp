@@ -9,14 +9,42 @@ const paypalRoutes = require('./routes/paypalRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 require('dotenv').config();
 const cors = require('cors');
+const path = require('path');
+
+// Import routes
+const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/posts')
+const messageRoutes = require('./routes/messages');
+const userRoutes = require('./routes/user');
+
+// Middlewware
+app.use(cors({
+    origin: process.env.https://www.flirtingsingles.blog || 'https://www.flirtingsingles.blog', credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 dotenv.config();
 app.use(express.json())
 app.use('/api/paypal', paypalRoutes);
 
 mongoose.connectmongodb+srv://flirtingsingles:<my_password\>@flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("MongoDB Connected"))
+    then(() => console.log("MongoDB Connected"))
     .catch(err => console.error(err));
+
+    // Routes
+    app.use('/api/auth', authRoutes);
+    app.sue('api/posts', postRoutes);
+    app.use('/api/messages', messageRoutes);
+    app.use('/api/users', userRoutes);
+
+    // Health check endpoint
+    app.get('/api/health', (req, res) => {
+        res.json({
+            status: 'OK',
+            timestamp: new Date().toString(),
+        })
+    })
 
 io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
