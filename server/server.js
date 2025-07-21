@@ -10,12 +10,19 @@ const profileRoutes = require('./routes/profileRoutes');
 require('dotenv').config();
 const cors = require('cors');
 const path = require('path');
+const axios = require('axios');
 
 // Import routes
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts')
 const messageRoutes = require('./routes/messages');
 const userRoutes = require('./routes/user');
+const response = await axios.post('http://www.flirtingsingles.blog/matchmaking', {
+    user_vector: [0.25, 1, 0.3, 1],
+    other_vectors: [[0.2, 1, 0.4, 1], [0.5, 0, 0.1, 0]]
+});
+
+const scores = response.data.scores;
 
 // Middlewware
 app.use(cors({
