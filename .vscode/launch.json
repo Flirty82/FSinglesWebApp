@@ -2,17 +2,30 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "localhost (Edge)",
-      "type": "edge",
+      "name": "Launch via NPM",
       "request": "launch",
-      "url": "http://localhost:3000",
+      "runtimeArgs": [
+        "run-script",
+        "debug"
+      ],
+      "runtimeExecutable": "npm",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node"
+    },
+    {
+      "name": "localhost (Edge)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "https://www.flirtingsingles.blog",
       "webRoot": "${workspaceFolder}\\public"
     },
     {
       "name": "localhost (Chrome)",
       "type": "chrome",
       "request": "launch",
-      "url": "http://localhost:3000",
+      "url": "https://www.flirtingsingles.blog",
       "webRoot": "${workspaceFolder}\\public"
     },
     {
@@ -20,7 +33,7 @@
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}/bin",
-      "program": "${workspaceFolder}/bin/www",
+      "program": "${workspaceFolder}/bin/www.flirtingsingles.blog",
       "stopOnEntry": true
     }
   ],

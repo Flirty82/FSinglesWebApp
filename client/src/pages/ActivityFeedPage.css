@@ -1,0 +1,86 @@
+.feed-container {
+    max-width: 800px;
+    margin: 0;
+    padding: 20px;
+}
+.post-card {
+    background-color: gray;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 15px;
+    transition: transform 0.2s ease;
+}
+.post-card:hover {
+    transform: scale(1.01);
+}
+.post-card h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: black;
+}
+.post-card p {
+    margin: 10px 0;
+    font-size: 1rem;
+    color: black;
+}
+button {
+    background-color: black;
+    color: hotpink;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+button:hover {
+    background-color: white;
+}
+input[type="text"] {
+    width: 100%;
+    padding: 6px;
+    margin-top: 10px;
+    border: 1px solid white;
+    border-radius: 5px;
+}
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+}
+.comment {
+    margin-left: 20px;
+    font-size: 0.9rem;
+    color: black;
+}
+
+.feed-container {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    max-width: 100%;
+}
+.post-card {
+    background-color: gray;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+    padding: 12px;
+    width: 100%;
+    box-sizing: border-box;
+}
+.post-card h4 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+.post-card p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+button {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+    width: 100%l
+}

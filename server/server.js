@@ -4,17 +4,54 @@ const dotenv = require('dotenv');
 const http = require('http');
 const { Server } = require('socket.io');
 const searchRoutes = require('./routes/searchRoutes');
+const videoRoutes = require('./routes/videoRoutes');
+const paypalRoutes = require('./routes/paypalRoutes');
+const profileRoutes = require('./routes/profileRoutes');
+require('dotenv').config();
+const cors = require('cors');
+const path = require('path');
+const axios = require('axios');
+
+// Import routes
+const authRoutes = require('./routes/auth');
+const postRoutes = require('./routes/posts')
+const messageRoutes = require('./routes/messages');
+const userRoutes = require('./routes/user');
+const response = await axios.post('http://www.flirtingsingles.blog/matchmaking', {
+    user_vector: [0.25, 1, 0.3, 1],
+    other_vectors: [[0.2, 1, 0.4, 1], [0.5, 0, 0.1, 0]]
+});
+
+const scores = response.data.scores;
+
+// Middlewware
+app.use(cors({
+    origin: process.env.https://www.flirtingsingles.blog || 'https://www.flirtingsingles.blog', credentials: true
+}));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 dotenv.config();
-const app = express();
-app.use(express.json());
-const server = http.createServer(app);
-const io = new Server(server);
+app.use(express.json())
+app.use('/api/paypal', paypalRoutes);
 
-mongoose.connect(mongodb + srv://flirtingsingles:<my_password\
-    >@flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log("MongoDB Connected"))
+mongoose.connectmongodb+srv://flirtingsingles:<my_password\>@flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
+    then(() => console.log("MongoDB Connected"))
     .catch(err => console.error(err));
+
+    // Routes
+    app.use('/api/auth', authRoutes);
+    app.sue('api/posts', postRoutes);
+    app.use('/api/messages', messageRoutes);
+    app.use('/api/users', userRoutes);
+
+    // Health check endpoint
+    app.get('/api/health', (req, res) => {
+        res.json({
+            status: 'OK',
+            timestamp: new Date().toString(),
+        })
+    })
 
 io.on('connection', (socket) => {
     console.log('User connected:', socket.id);
@@ -54,6 +91,12 @@ app.use('/api/posts', require('./routes/posts'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/messages', reuqire('./routes/messages'));
 app.use('/api/search', searchRoutes);
+app.use('/api/video', videoRoutes);
+app.use('/api/profile', profileRoutes);
+app.use('/api/flirts', require('./routes/flirtRoutes'));
+
+// Serve videos
+app.use('/videos', express.static('uploads/videos'));
 
 app.listen(3000, () => console.log('Server running on port 3000'));
 
@@ -63,9 +106,8 @@ server.listen(3000, () => console.log('Server running on port 3000'));
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const app = express();
 
-mongoose.connect('mongodb://localhost:27017/datingApp', {
+mongoose.connect('mongodb+srv://flirtingsingles:<65SZgghaaXl1vqHW>@flirtingsingles1.8pfjj.mongodb.net?retryWrites=true&w=majority&appName=flirtingsingles1', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
@@ -146,3 +188,35 @@ const newUser = new User({
 await newUser.save();
 
 
+require('socket.io')(server);
+
+io.on('connection', (socket) => {
+    console.log('User Connected:', socket.id);
+
+    socket.on('joinRoom', (roomId) => {
+        socket.join(roomId);
+        console.log('User joined room: ${roomId}');
+    });
+
+    socket.on('sendMessage', async ({ roomId, sender, content }) => {
+        const message = new ChatMessage({ room: roomId, sender, content });
+        await message.save();
+        io.to(roomId).emit('newMessage', message);
+    });
+
+    socket.on('disconnect', () => console.log('User disconnected:', socket.id));
+
+    if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+        const PORT = process.env.PORT || 5000;
+        app.listen(PORT, () => {
+            console.log('Server running on port ${PORT}');
+        });
+    }
+
+    const cors = require('cors');
+    app.use(cors({
+        origin: 'https://www.flirtingsingles.blog.vercel.app',
+        credentials: true
+    }));
+
+    module.exports = app();

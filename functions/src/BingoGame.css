@@ -1,0 +1,22 @@
+.bingo-board {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  gap: 8px;
+  margin: 2rem auto;
+  width: fit-content;
+}
+.bingo-cell {
+  width: 60px;
+  height: 60px;
+  background: #fff;
+  border: 2px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  cursor: pointer;
+}
+.marked {
+  background: #b2f0b2;
+  color: #222;
+}
