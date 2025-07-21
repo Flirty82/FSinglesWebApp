@@ -1,17 +1,19 @@
 import React from 'react';
 import SideNav from '../components/public/stylesheets/SideNav';
+import { User, Camera, Settings, Heart, Users, MessageCircle, MapPin, Calendar, Mail, Phone, Edit3, Save, X, Uplaod, Trash2, Eye, EyeOff, Lock, Bell, Shield, CreditCard } from 'lucide-react';
 
-const UserProfilePage = () => {
-    const user = { membershipLevel: 'platinum' };
+const Userprofile = () => {
+    const [activeTab, setActiveTab] = useState('profile');
+    const [isEditing, setIsEditing] = useState(false);
+    const [profileData, setProfileData] = useState({
+        firstName: 'Autumn',
+        lastName: 'Smith',
+        email: 'flirtingsingles@gmail.com',
+        phone: '+1(501)803-6579',
+        dateOfBirth: '1983-01-06',
+        location: 'New York, NY',
+        bio: 'Coffe enthusiast and cooking',
 
-    return (
-        <div style={{ display: 'flex' }}>
-            <SideNav membershipLevel={user.membershipLevel}/>
-            <main style={{ marginLeft: '240px', padding: '20px' }}>
-                <h2>User Profile Page</h2>
-            </main>
-        </div>
-    );
-};
+    })
 
-export default UserProfilePage;
+}
