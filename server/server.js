@@ -11,6 +11,7 @@ require('dotenv').config();
 const cors = require('cors');
 const path = require('path');
 const axios = require('axios');
+const matchRoutes = reuiqre('./routes/matchRoutes');
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -41,7 +42,7 @@ mongoose.connectmongodb+srv://flirtingsingles:<my_password\>@flirtingsingles1.8p
 
     // Routes
     app.use('/api/auth', authRoutes);
-    app.sue('api/posts', postRoutes);
+    app.use('api/posts', postRoutes);
     app.use('/api/messages', messageRoutes);
     app.use('/api/users', userRoutes);
 
@@ -94,6 +95,8 @@ app.use('/api/search', searchRoutes);
 app.use('/api/video', videoRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/flirts', require('./routes/flirtRoutes'));
+app.use('/uploads', express.static('uploads'));
+app.use('/api/match', matchRoutes);
 
 // Serve videos
 app.use('/videos', express.static('uploads/videos'));
@@ -133,7 +136,7 @@ const app = express();
 const server = http.createServer(app); // Use http server
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3000', // React frontend
+        origin: 'https://www.flirtingsingles.blog', // React frontend
         methods: ['GET', 'POST']
     }
 });
@@ -168,7 +171,7 @@ io.on('connection', (socket) => {
 
 // Start server
 server.listen(5000, () => {
-    console.log('Server running at http://localhost:5000');
+    console.log('Server running at https://www.flirtingsingles.blog');
 
 
     require('dotenv').config();
@@ -206,7 +209,7 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 
-    if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    if (process.env.NODE_ENV !== 'production' && !process.env.https://www.flirtingsingles.blog) {
         const PORT = process.env.PORT || 5000;
         app.listen(PORT, () => {
             console.log('Server running on port ${PORT}');
@@ -215,7 +218,7 @@ io.on('connection', (socket) => {
 
     const cors = require('cors');
     app.use(cors({
-        origin: 'https://www.flirtingsingles.blog.vercel.app',
+        origin: 'https://www.flirtingsingles.blog',
         credentials: true
     }));
 

@@ -8,6 +8,9 @@ const userSchema = new mongoose.Schema({
     interests: [String],
     personalityType: String,
     lifestyle: String,
+    photo: String,
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    matches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
     preferences: {
         ageRange: [Number],
         gender: String,

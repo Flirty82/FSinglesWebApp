@@ -54,6 +54,10 @@ import WelcomePage from './pages/WelcomePage';
 import AboutPage from './pages/AboutPage';
 import MembershipPage from './pages/MembershipPage';
 import ContactPage from './pages/ContactPage';
+import Discover from './pages/Discover';
+import Matches from './pages/Matches';
+import Inbox from './pages/Inbox';
+import ChatRoom from './pages/ChatRoom';
 
 function App() {
   return (
@@ -64,6 +68,11 @@ function App() {
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/memberships" element={<Memberships/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
+        <Route path="/profile" element={<UserProfile/>}/>
+        <Route path="/discover/:userId" element={<Discover userId="replace-with-userId"/>}/>
+        <Route path="/matches/:userId" element={<Matches userId="replace-with-userId"/>}/>
+        <Route path="/inbox/:userId" element={<Inbox userId="replace-with-userId"/>}/>
+        <Route path="/chat/:userId" element={<ChatRoom/>}/>
       </Routes>
       </Router>
   );

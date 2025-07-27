@@ -1,35 +1,30 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
-const UserProfile ({ userId }) => {
-    const [profile, setProfile] = useState({ naem: '', email: '', bio: '' });
+const UserProfile = () => {
+    const { userId } = useParams();
+    const [profile, setProfile] = useState(null);
 
     useEffect(() => {
-        fetch('https:/www.flirtingsingles.blog/api/users/${userId}')
+        fetch('https://www.flirtingsingles.blog/api/profile/${userId}')
           .then(res => res.json())
-          .then(data => setProfile(data))
-          .catch (err => console.error('Error loading profile', err));
-    }, []);
+          .then(setProfile)
+          .catch(console.error);
+    }, [userId]);
 
-    const handleChange = (e) => {
-        setProfile({ ...profile, [e.target.name]: e.target.value });
-    };
-
-    const saveProfile = () => {
-        fetch('https://www.flirtingsingles.blog/api/users/${userId}', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(profile);
-        })
-        .then(res => res.json())
-        .then(data => alert('Profile saved!'))
-        .catch(err => console.error('Error saving profile.', error));
-    };
+    if (!profile) return <div>Loading profile...</div>;
 
     return (
-        <di>
-            <h2>Edit profile</h2>
-            <input name="name" value={profile.name} onChange={handleChange} placeholder="Name"/><br/>
-            
-        </di>
-    )
-}
+        <div className="auth-form">
+            <h2>User Profile</h2>
+            <p>{profile.bio}</p>{profile.photo && <img src={profile.photo} alt="User" width="200"/>}
+            {profile.video && (
+                <video width="320" controls>
+                    <source src={profile.video}/>
+                </video>
+            )}
+        </div>
+    );
+};
+
+export default UserProfile;
