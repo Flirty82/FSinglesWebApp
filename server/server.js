@@ -12,12 +12,15 @@ const cors = require('cors');
 const path = require('path');
 const axios = require('axios');
 const matchRoutes = reuiqre('./routes/matchRoutes');
+const rateLimit = require('express-rate-limit');
 
 // Import routes
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts')
 const messageRoutes = require('./routes/messages');
+const gameRoutes = require('./routes/game');
 const userRoutes = require('./routes/user');
+const socketHandlers = require('./socket/socketHandlers');
 const response = await axios.post('http://www.flirtingsingles.blog/matchmaking', {
     user_vector: [0.25, 1, 0.3, 1],
     other_vectors: [[0.2, 1, 0.4, 1], [0.5, 0, 0.1, 0]]
@@ -25,18 +28,25 @@ const response = await axios.post('http://www.flirtingsingles.blog/matchmaking',
 
 const scores = response.data.scores;
 
+// Rate limiting
+const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000, //15 minutes
+    max: 100 // limit each IP to 100 requests per windowMs
+});
+
 // Middlewware
 app.use(cors({
-    origin: process.env.https://www.flirtingsingles.blog || 'https://www.flirtingsingles.blog', credentials: true
+    origin: process.env || 'https://www.flirtingsingles.blog', credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(limiter);
 
 dotenv.config();
 app.use(express.json())
 app.use('/api/paypal', paypalRoutes);
 
-mongoose.connectmongodb+srv://flirtingsingles:<my_password\>@flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connectmongodb+srv//flirtingsingles:<65SZgghaaXl1vqHW>@flirtingsingles1.8pfjj.mongodb.net / { useNewUrlParser: true, useUnifiedTopology: true })
     then(() => console.log("MongoDB Connected"))
     .catch(err => console.error(err));
 
@@ -132,7 +142,6 @@ const cors = require('cors');
 const http = require('http');
 const { Server } = require('socket.io');
 
-const app = express();
 const server = http.createServer(app); // Use http server
 const io = new Server(server, {
     cors: {
@@ -155,8 +164,11 @@ mongoose.connect('mongodb+srv://flirtingsingles:<XcxvjYGzxw2zJVQl>@flirtingsingl
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/posts', require('./routes/posts'));
 app.use('/api/messages', require('./routes/messages'));
+app.use('/api/games', gameRoutes);
+app.use('/api/users', userRoutes);
 
 // Socket.IO connections
+socketHandlers(io);
 io.on('connection', (socket) => {
     console.log('🔌 New user connected');
 
@@ -167,6 +179,17 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('❌ User disconnected');
     });
+});
+
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({ message: "Something went wrong" });
+});
+
+// 404 handler
+app.use('*', (req, res) => {
+    res.status(404).json({ message: "Route not found" });
 });
 
 // Start server
@@ -193,7 +216,7 @@ await newUser.save();
 
 require('socket.io')(server);
 
-io.on('connection', (socket) => {
+io.on;'connection', (socket) => {
     console.log('User Connected:', socket.id);
 
     socket.on('joinRoom', (roomId) => {
@@ -209,17 +232,63 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => console.log('User disconnected:', socket.id));
 
-    if (process.env.NODE_ENV !== 'production' && !process.env.https://www.flirtingsingles.blog) {
-        const PORT = process.env.PORT || 5000;
+    if (process.env.NODE_ENV !== 'production' && !process.env.https        const PORT = process.env.PORT || 5000;
         app.listen(PORT, () => {
-            console.log('Server running on port ${PORT}');
-        });
+            console.log('Server running on port ${PORT}')
+      });
     }
-
     const cors = require('cors');
     app.use(cors({
         origin: 'https://www.flirtingsingles.blog',
         credentials: true
     }));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(reactBuildPath, 'index.html'));
+    });
+
+    let bingoCalledNumbers = [];
+    let bingoAvailableNumbers = Array.from({ length: 75 }, (_, i) => i + 1);
+
+    io.on('connection', (socket) => {
+        console.log('A user connected:', socket.id);
+
+        // When a new user connects send them the current game state
+        socket.emit('initialBingoState', {
+            calledNumbers: bingoCalledNumbers,
+            currentCalledNumbers: bingoCalledNumbers[bingoCalledNumbers.length -1] || null
+        });
+
+        // Handle 'callNumber' event from a client
+        socket.on('callNumber', () => {
+            if (bingoAvailableNumbers.length === 0) {
+                console.log('No more numbers to call.');
+            }
+
+            const randomIndex = Math.floor(Math.random() * bingoAvailableNumbers.length);
+            const newNumber = bingoAvailableNumbers[randomIndex];
+
+            bingoAvailableNumbers = bingoAvailableNumbers.filter(num => num !== newNumber);
+            bingoCalledNumbers.push(newNumber);
+
+            // Broadcast the new number and the updated list to all connected clients
+            io.emit('numberCalled', {
+                number: newNumber,
+                allCalledNumbers: bingoCalledNumbers
+            });
+            console.log('Number called: ${newNumber}. Total called: ${bingoCalledNumbers.length}');
+        });
+
+        // Handle 'resetGame' event from a client
+        socket.on('resetGame', () => [
+            bingoCalledNumbers = [],
+            bingoAvailableNumbers = Array.from({ length: 75 }, (_, i) => i + 1),
+            io.emit('gameReset'); // Inform all clients that the game has reset
+            console.log('Bingo game reset by a user');
+        ]);
+
+        socket.on('disconnect', () => {
+            console.log('User disconnected:', socket.id);
+        });
 
     module.exports = app();
