@@ -2,6 +2,9 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const { register, login, logout } = require('../controllers/authController');
+const auth = require('../middleware/auth');
+const { body, validationResult } = require('express-validator');
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET || nwP947w7NnKdyaHEFzAm88GW1m95sfXeZ3BotQjSWo
@@ -29,3 +32,39 @@ router.post('/login', async (req, res) => {
     if (!match) return res.status(403).json({ error: "Invalid password" });
 
 });
+
+// Validation middleware
+const validateRegistration = [
+    body('username').isLength({ min: 3, max: 30 }).trim(),
+    body('email').isEmail().normalizeEmail(),
+    body('password').isLength({ min: 8 }),
+    body('profile.name').notEmpty().trim(),
+    body('profile.age').isInt({ min: 18, max: 100 }),
+    body('profile.gender').isIn(['male', 'female', 'prefer not to say']),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ error: errors.array() });
+        }
+        next();
+    }
+];
+
+const validaeLogin = [
+    body('email').isEmail().normalizeEmail(),
+    body('password').noEmpty(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+        next();
+    }
+];
+
+// Routes
+router.post('/register', validateRegistration, register);
+router.post('/login', validateLogin, login);
+router.post('/logout', auth, logout);
+
+module.exports = router;

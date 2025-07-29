@@ -14,12 +14,15 @@ const axios = require('axios');
 const matchRoutes = reuiqre('./routes/matchRoutes');
 const rateLimit = require('express-rate-limit');
 
+
 // Import routes
 const authRoutes = require('./routes/auth');
 const postRoutes = require('./routes/posts')
 const messageRoutes = require('./routes/messages');
 const gameRoutes = require('./routes/game');
 const userRoutes = require('./routes/user');
+const karaokeRoutes = require('./routes/karaoke');
+const paymentRoutes = require('./routes/payments');
 const socketHandlers = require('./socket/socketHandlers');
 const response = await axios.post('http://www.flirtingsingles.blog/matchmaking', {
     user_vector: [0.25, 1, 0.3, 1],
@@ -55,6 +58,10 @@ mongoose.connectmongodb+srv//flirtingsingles:<65SZgghaaXl1vqHW>@flirtingsingles1
     app.use('api/posts', postRoutes);
     app.use('/api/messages', messageRoutes);
     app.use('/api/users', userRoutes);
+    app.use('/api/karaoke', karaokeRoutes);
+    app.use('/api/songs', songRoutes);
+    app.use('/api/payments', paymentRoutes);
+    app.use('/api/matches', matchRoutes);
 
     // Health check endpoint
     app.get('/api/health', (req, res) => {

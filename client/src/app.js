@@ -4,6 +4,24 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './context/AuthContext';
+import { SocketProvider } from './context/SocketContext';
+import { useAuth } from './hooks/useAuth';
+
+// Components
+import Header from './components/Common/Header';
+import HomePage from './components/Layout/Homepage';
+import Login from './components/Auth/Login';
+import Signup from './components/Auth/Signup';
+import Dashboard from './components/Layout/Dashboard';
+import KaraokeRoom from './components/Karaoke/KaraokeRoom';
+import ProfileView from './components/Dating/ProfileView';
+import PremiumUpgrade from './components/Payment/PremiumUpgrade';
+import MatchList from './components/Dating/MatchList';
+import Loading from './components';
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
